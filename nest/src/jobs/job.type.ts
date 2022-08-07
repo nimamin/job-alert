@@ -19,9 +19,9 @@ export interface Job {
 }
 
 export interface JobEventDto {
-    op: string;
-    data: {
-        old: Job | null;
-        new: Job;
-    }
+  op: string;
+  data: {
+    old: null;
+    new: JobDto;
+  };
 }
