@@ -37,8 +37,25 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      MY_WEBHOOK_URL: http://nest/jobs
     volumes:
       - ./hasura/migrations:/hasura-migrations
       - ./hasura/metadata:/hasura-metadata
+
+  nest:
+    build:
+      dockerfile: nestDockerfile
+      context: ./nest
+      # Only will build development stage from our dockerfile
+      target: development
+    volumes:
+      - ./nest:/usr/src/app
+    # env_file:
+    # - .env
+    # Run a command against the development stage of the image
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+
 volumes:
   db_data:
