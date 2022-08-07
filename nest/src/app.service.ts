@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { JobEventDto } from './job-event.dto';
+import { JobEventDto } from './job.type';
 
 @Injectable()
 export class AppService {

@@ -1,0 +1,19 @@
+<p>Hi,</p>
+<p>Here is the newly added Job based on your interest.</p>
+<dl>
+    <dt>Job Title</dt>
+    <dd>{{ job.title }}</dd>
+
+    <dt>City</dt>
+    <dd>{{ job.city }}</dd>
+
+    <dt>Company Name</dt>
+    <dd>{{ job.company.name }}</dd>
+
+    <dt>Company Investors</dt>
+    {{#each job.company.company_investors}}
+        <dd>{{ this.investor.name }}</dd>
+    {{/each}}
+</dl>
+
+<p>If you did not request this email you can safely ignore it.</p>

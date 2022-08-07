@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { JobEventDto } from './job-event.dto';
+import { JobEventDto } from './job.type';
 
 @Controller()
 export class AppController {
