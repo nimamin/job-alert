@@ -48,11 +48,10 @@ services:
       context: ./nest
       # Only will build development stage from our dockerfile
       target: development
+    environment:
+      MAIL_TRANSPORT: smtp://user@example.com:topsecret@smtp.example.com
     volumes:
       - ./nest:/usr/src/app
-    # env_file:
-    # - .env
-    # Run a command against the development stage of the image
     command: npm run start:dev
     ports:
       - 3000:3000

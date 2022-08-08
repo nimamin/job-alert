@@ -9,7 +9,6 @@ export class MailService {
     async sendNewJobEmail(email: string, job: Job) {
         await this.mailerService.sendMail({
           to: email,
-          // from: '"Support Team" <support@example.com>', // override default from
           subject: `New Job (${job.title}) in ${job.city}`,
           template: './new-job', 
           context: {

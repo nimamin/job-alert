@@ -1,12 +1,17 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { Job, JobDto } from 'src/jobs/job.type';
+import { MailService } from 'src/mail/mail.service';
 import { JOBS_QUERY, JOB_BY_ID_QUERY } from './queries';
+import { email, cities, keywords } from 'src/settings';
 
 
 @Injectable()
 export class JobsService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly mailService: MailService,
+  ) {}
 
   async sendQuery<T>(query: string, variables): Promise<T> {
     return await this.httpService.axiosRef.request({
@@ -18,6 +23,13 @@ export class JobsService {
         variables,
       },
     });
+  }
+
+  filterJobs(job: Job): boolean {
+    return (
+      cities.indexOf(job.city.toLowerCase()) > -1 &&
+      keywords.indexOf(job.title.toLowerCase()) > -1
+    );
   }
 
   async findAll(): Promise<Job[]> {
@@ -32,7 +44,7 @@ export class JobsService {
 
   async newJob(jobDto: JobDto): Promise<void> {
     const job = await this.findOne(jobDto.id);
-    console.log({ job });
+    if (this.filterJobs(job)) await this.mailService.sendNewJobEmail(email, job);
     return;
   }
 }
