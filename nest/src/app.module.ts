@@ -10,7 +10,7 @@ import { JobsModule } from './jobs/jobs.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MailModule,
+    // MailModule,
     JobsModule,
   ],
   controllers: [AppController],
